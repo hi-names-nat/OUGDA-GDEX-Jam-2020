@@ -47,6 +47,15 @@ public class Movement_FPS : MonoBehaviour
     [Tooltip("The player's speed")]
     private float playerSpeed = SPEED;
 
+    //IMPLIMENT IN NEXT IT
+    //[SerializeField]
+    //[Tooltip("Curve of the player's accel")]
+    //private AnimationCurve acelerationCurve;
+
+    //[SerializeField]
+    //[Tooltip("Curve of the player's decel")]
+    //private AnimationCurve decelerationCurve;
+
     [SerializeField]
     [Tooltip("The angle the player can look up/down")]
     private float maxYAngle = 90f;
@@ -111,9 +120,15 @@ public class Movement_FPS : MonoBehaviour
      */
     private MasterInput inputController;
 
+    private float curveFloat;
+
+    // NOT USED IN CURRENT IT
+    //private AnimationCurve currentCurve;
+
 
     private void Awake()
     {
+        transform.GetComponent<Rigidbody>().mass = 1;
 
         cameraObject = transform.GetChild(0).gameObject;
 
@@ -160,7 +175,20 @@ public class Movement_FPS : MonoBehaviour
     private void FixedUpdate()
     {
         //TODO: find a way to make it so this code does not have to be run every frame if possible
-        movePlayer(moveInputForce);
+        print(moveInputForce);
+        if (Mathf.Abs(moveInputForce.x) == 0 && Mathf.Abs(moveInputForce.y) == 0)
+        {
+            //there's a better way to do this. Find if you have the time.
+            transform.GetComponent<Rigidbody>().velocity = new Vector3(Mathf.MoveTowards(transform.GetComponent<Rigidbody>().velocity.x, 0, 
+                Time.deltaTime * 50), transform.GetComponent<Rigidbody>().velocity.y, Mathf.MoveTowards(transform.GetComponent<Rigidbody>().velocity.z, 0, Time.deltaTime * 50));
+            curveFloat = 0;
+        }
+        else
+        {
+            movePlayer(moveInputForce);
+        }
+        print(Mathf.Abs(moveInputForce.x + moveInputForce.y));
+        
     }
 
     /**
@@ -169,16 +197,22 @@ public class Movement_FPS : MonoBehaviour
     void movePlayer(Vector2 movementForce)
     {
         if (isGrounded())
-        {
-            transform.GetComponent<Rigidbody>().drag = 5;
+        { 
             //does player wasd/stick movement
+            curveFloat = Mathf.MoveTowards(curveFloat, playerSpeed, Time.deltaTime * 10);
+            print(curveFloat);
             Vector3 transformForce = transform.forward * movementForce.y + transform.right * movementForce.x;
-            transformForce.y = transform.GetComponent<Rigidbody>().velocity.y;
-            //transform.GetComponent<Rigidbody>().velocity = transformForce;
-            transform.GetComponent<Rigidbody>().AddForce(transformForce * 10 * playerSpeed);
-            Mathf.Clamp(transform.GetComponent<Rigidbody>().velocity.x, -playerSpeed * movementForce.x, playerSpeed * movementForce.x);
-            Mathf.Clamp(transform.GetComponent<Rigidbody>().velocity.y, -playerSpeed * movementForce.y, playerSpeed * movementForce.y);
+            //this could be better, but not important rn
+            transformForce = new Vector3(transformForce.x * curveFloat, transformForce.y, transformForce.z * curveFloat);
+            transformForce.y = transform.GetComponent<Rigidbody>().velocity.y; 
+            transform.GetComponent<Rigidbody>().velocity = transformForce;
 
+
+            //DEPRICATED ADDFORCE
+            //transform.GetComponent<Rigidbody>().drag = 5;
+            //transform.GetComponent<Rigidbody>().AddForce(transformForce * 10 * playerSpeed);
+            //Mathf.Clamp(transform.GetComponent<Rigidbody>().velocity.x, -playerSpeed * movementForce.x, playerSpeed * movementForce.x);
+            //Mathf.Clamp(transform.GetComponent<Rigidbody>().velocity.y, -playerSpeed * movementForce.y, playerSpeed * movementForce.y);
         }
         else
         {
@@ -254,9 +288,10 @@ public class Movement_FPS : MonoBehaviour
 
     void Jump()
     {
+        print("jump");
         if (isGrounded())
         {
-            transform.GetComponent<Rigidbody>().AddForce(0, jumpHeight, 0);
+            transform.GetComponent<Rigidbody>().AddForce(0, jumpHeight * 20, 0);
         }
     }
 }
