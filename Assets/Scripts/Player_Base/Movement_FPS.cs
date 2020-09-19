@@ -175,7 +175,6 @@ public class Movement_FPS : MonoBehaviour
     private void FixedUpdate()
     {
         //TODO: find a way to make it so this code does not have to be run every frame if possible
-        print(moveInputForce);
         if (Mathf.Abs(moveInputForce.x) == 0 && Mathf.Abs(moveInputForce.y) == 0)
         {
             //there's a better way to do this. Find if you have the time.
@@ -187,7 +186,6 @@ public class Movement_FPS : MonoBehaviour
         {
             movePlayer(moveInputForce);
         }
-        print(Mathf.Abs(moveInputForce.x + moveInputForce.y));
         
     }
 
@@ -200,7 +198,6 @@ public class Movement_FPS : MonoBehaviour
         { 
             //does player wasd/stick movement
             curveFloat = Mathf.MoveTowards(curveFloat, playerSpeed, Time.deltaTime * 10);
-            print(curveFloat);
             Vector3 transformForce = transform.forward * movementForce.y + transform.right * movementForce.x;
             //this could be better, but not important rn
             transformForce = new Vector3(transformForce.x * curveFloat, transformForce.y, transformForce.z * curveFloat);
@@ -288,7 +285,6 @@ public class Movement_FPS : MonoBehaviour
 
     void Jump()
     {
-        print("jump");
         if (isGrounded())
         {
             transform.GetComponent<Rigidbody>().AddForce(0, jumpHeight * 20, 0);
