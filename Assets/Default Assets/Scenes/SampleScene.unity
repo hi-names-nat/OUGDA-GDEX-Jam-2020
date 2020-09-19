@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.28502676, g: 0.37139347, b: 0.49601015, a: 1}
+  m_IndirectSpecularColor: {r: 0.28502566, g: 0.37139213, b: 0.49600884, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -608,9 +608,61 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4905026106848710, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.457
+      objectReference: {fileID: 0}
+    - target: {fileID: 23059122378422524, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.79944766
+      objectReference: {fileID: 0}
+    - target: {fileID: 23294592848741636, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.79944766
+      objectReference: {fileID: 0}
+    - target: {fileID: 23331886048273050, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.79944766
+      objectReference: {fileID: 0}
+    - target: {fileID: 23368822228567966, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23550572697235950, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23627568587924664, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23659599791270868, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23816153722797322, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.79944766
+      objectReference: {fileID: 0}
+    - target: {fileID: 23953441425032424, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.79944766
+      objectReference: {fileID: 0}
+    - target: {fileID: 23970669357719048, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 108453799659117390, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
       propertyPath: m_Lightmapping
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 205049785646260248, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_FadeMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 205049785646260248, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
+      propertyPath: m_AnimateCrossFading
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85dfab9623c67784fa7894de63cd1604, type: 3}
