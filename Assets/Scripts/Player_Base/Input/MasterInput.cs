@@ -43,7 +43,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Inventory"",
+                    ""name"": ""Switch Perspective"",
                     ""type"": ""Button"",
                     ""id"": ""3afaf8a1-7536-4e92-8c35-16e9fadeb3ad"",
                     ""expectedControlType"": ""Button"",
@@ -283,11 +283,11 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8385c18f-7e32-491d-9412-d4bef8cb77fb"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Inventory"",
+                    ""groups"": """",
+                    ""action"": ""Switch Perspective"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -298,7 +298,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Inventory"",
+                    ""action"": ""Switch Perspective"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -890,7 +890,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_SwitchPerspective = m_Player.FindAction("Switch Perspective", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -956,7 +956,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
-    private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_SwitchPerspective;
     private readonly InputAction m_Player_Jump;
     public struct PlayerActions
     {
@@ -965,7 +965,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
-        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @SwitchPerspective => m_Wrapper.m_Player_SwitchPerspective;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -985,9 +985,9 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
-                @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
-                @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @SwitchPerspective.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchPerspective;
+                @SwitchPerspective.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchPerspective;
+                @SwitchPerspective.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchPerspective;
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
@@ -1004,9 +1004,9 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
-                @Inventory.started += instance.OnInventory;
-                @Inventory.performed += instance.OnInventory;
-                @Inventory.canceled += instance.OnInventory;
+                @SwitchPerspective.started += instance.OnSwitchPerspective;
+                @SwitchPerspective.performed += instance.OnSwitchPerspective;
+                @SwitchPerspective.canceled += instance.OnSwitchPerspective;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
@@ -1169,7 +1169,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
-        void OnInventory(InputAction.CallbackContext context);
+        void OnSwitchPerspective(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
     }
     public interface IUIActions
