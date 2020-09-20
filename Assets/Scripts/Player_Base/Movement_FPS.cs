@@ -75,6 +75,10 @@ public class Movement_FPS : MonoBehaviour
     [Tooltip("How fast the player can go while not grounded.")]
     private float AirSpeed;
 
+    [Header("First/TP")]
+    [SerializeField]
+    [Tooltip("Third-Person offset")]
+    private Vector3 TPPos;
 
     [Header("Debug")]
     [SerializeField]
@@ -120,7 +124,14 @@ public class Movement_FPS : MonoBehaviour
      */
     private MasterInput inputController;
 
+    /**
+     * the float used to curve movement inputs
+     */
     private float curveFloat;
+
+    private bool isTP;
+
+    private Vector3 FPPos;
 
     // NOT USED IN CURRENT IT
     //private AnimationCurve currentCurve;
@@ -131,6 +142,8 @@ public class Movement_FPS : MonoBehaviour
         transform.GetComponent<Rigidbody>().mass = 1;
 
         cameraObject = transform.GetChild(0).gameObject;
+
+        FPPos = cameraObject.transform.localPosition;
 
         currentRotation = cameraObject.transform.rotation.eulerAngles;
 
@@ -148,6 +161,7 @@ public class Movement_FPS : MonoBehaviour
 
         inputController.Player.Look.performed += ctx => MoveCamera(ctx.ReadValue<Vector2>());
 
+        inputController.Player.SwitchPerspective.performed += _ => SwitchCameraPos();
 
         //bools 
         inputController.Player.Jump.performed += _ => Jump();
@@ -160,6 +174,7 @@ public class Movement_FPS : MonoBehaviour
         inputController.Player.Move.canceled -= _ => moveInputForce = Vector2.zero;
         inputController.Player.Look.performed -= ctx => MoveCamera(ctx.ReadValue<Vector2>());
         inputController.Player.Jump.performed -= _ => Jump();
+        inputController.Player.SwitchPerspective.performed -= _ => SwitchCameraPos();
     }
 
     private void OnEnable()
@@ -175,11 +190,12 @@ public class Movement_FPS : MonoBehaviour
     private void FixedUpdate()
     {
         //TODO: find a way to make it so this code does not have to be run every frame if possible
+      
         if (Mathf.Abs(moveInputForce.x) == 0 && Mathf.Abs(moveInputForce.y) == 0)
         {
             //there's a better way to do this. Find if you have the time.
             transform.GetComponent<Rigidbody>().velocity = new Vector3(Mathf.MoveTowards(transform.GetComponent<Rigidbody>().velocity.x, 0, 
-                Time.deltaTime * 50), transform.GetComponent<Rigidbody>().velocity.y, Mathf.MoveTowards(transform.GetComponent<Rigidbody>().velocity.z, 0, Time.deltaTime * 50));
+            Time.deltaTime * 50), transform.GetComponent<Rigidbody>().velocity.y, Mathf.MoveTowards(transform.GetComponent<Rigidbody>().velocity.z, 0, Time.deltaTime * 50));
             curveFloat = 0;
         }
         else
@@ -288,6 +304,20 @@ public class Movement_FPS : MonoBehaviour
         if (isGrounded())
         {
             transform.GetComponent<Rigidbody>().AddForce(0, jumpHeight * 20, 0);
+        }
+    }
+
+
+    void SwitchCameraPos()
+    {
+        if (isTP)
+        {
+            cameraObject.transform.localPosition = FPPos;
+            isTP = !isTP;
+        } else
+        {
+            cameraObject.transform.localPosition += TPPos;
+            isTP = !isTP;
         }
     }
 }

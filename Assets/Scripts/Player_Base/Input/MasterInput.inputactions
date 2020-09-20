@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Inventory",
+                    "name": "Switch Perspective",
                     "type": "Button",
                     "id": "3afaf8a1-7536-4e92-8c35-16e9fadeb3ad",
                     "expectedControlType": "Button",
@@ -270,11 +270,11 @@
                 {
                     "name": "",
                     "id": "8385c18f-7e32-491d-9412-d4bef8cb77fb",
-                    "path": "<Keyboard>/i",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Inventory",
+                    "groups": "",
+                    "action": "Switch Perspective",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -285,7 +285,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Inventory",
+                    "action": "Switch Perspective",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
