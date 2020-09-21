@@ -85,6 +85,10 @@ public class Movement_FPS : MonoBehaviour
     [Tooltip("Wether to display debug info and renders")]
     private bool displayDebugInfo;
 
+    [SerializeField]
+    [Tooltip("length for raycast for jump, default value 1.5f")]
+    private float groundedCheckdist = 1.5f;
+
     [Header("Load settings")]
     [SerializeField]
     [Tooltip("Wether to destroy or not destroy when loading the next level \n true: do destroy\nfalse: do not destroy")]
@@ -190,19 +194,7 @@ public class Movement_FPS : MonoBehaviour
     private void FixedUpdate()
     {
         //TODO: find a way to make it so this code does not have to be run every frame if possible
-      
-        if (Mathf.Abs(moveInputForce.x) == 0 && Mathf.Abs(moveInputForce.y) == 0)
-        {
-            //there's a better way to do this. Find if you have the time.
-            transform.GetComponent<Rigidbody>().velocity = new Vector3(Mathf.MoveTowards(transform.GetComponent<Rigidbody>().velocity.x, 0, 
-            Time.deltaTime * 50), transform.GetComponent<Rigidbody>().velocity.y, Mathf.MoveTowards(transform.GetComponent<Rigidbody>().velocity.z, 0, Time.deltaTime * 50));
-            curveFloat = 0;
-        }
-        else
-        {
-            movePlayer(moveInputForce);
-        }
-        
+         movePlayer(moveInputForce);
     }
 
     /**
@@ -210,8 +202,18 @@ public class Movement_FPS : MonoBehaviour
      **/
     void movePlayer(Vector2 movementForce)
     {
+        print(isGrounded());
         if (isGrounded())
-        { 
+        {
+            if (Mathf.Abs(moveInputForce.x) == 0 && Mathf.Abs(moveInputForce.y) == 0)
+            {
+                //there's a better way to do this. Find if you have the time.
+                transform.GetComponent<Rigidbody>().velocity = new Vector3(Mathf.MoveTowards(transform.GetComponent<Rigidbody>().velocity.x, 0,
+                Time.deltaTime * 50), transform.GetComponent<Rigidbody>().velocity.y, Mathf.MoveTowards(transform.GetComponent<Rigidbody>().velocity.z, 0, Time.deltaTime * 50));
+                curveFloat = 0;
+                return;
+            }
+
             //does player wasd/stick movement
             curveFloat = Mathf.MoveTowards(curveFloat, playerSpeed, Time.deltaTime * 10);
             Vector3 transformForce = transform.forward * movementForce.y + transform.right * movementForce.x;
@@ -229,15 +231,22 @@ public class Movement_FPS : MonoBehaviour
         }
         else
         {
-            transform.GetComponent<Rigidbody>().drag = 0;
             //does airborne wasd/stick movement
             transform.GetComponent<Rigidbody>().AddForce((transform.forward * movementForce.y * playerSpeed * airControl) + (transform.right * movementForce.x * playerSpeed));
             float newx, newz;
             newx = Mathf.Clamp(transform.GetComponent<Rigidbody>().velocity.x, -AirSpeed, AirSpeed);
             newz = Mathf.Clamp(transform.GetComponent<Rigidbody>().velocity.z, -AirSpeed, AirSpeed);
-            transform.GetComponent<Rigidbody>().velocity = new Vector3(newx, transform.GetComponent<Rigidbody>().velocity.y, newz);
+            transform.GetComponent<Rigidbody>().AddForce(new Vector3(newx, transform.GetComponent<Rigidbody>().velocity.y, newz));
 
             //backwards movement modifier. Makes sure if you hit -Y on controller while moving in +Y the player instantly stops moving in +Y
+            //if (movementForce.y < -.1f && transform.InverseTransformPoint(transform.GetComponent<Rigidbody>().velocity).y < .01f)
+            //{
+            //    //calculated through worldtolocalmatrix so the local z value can be modified, instead of the global z value.
+            //    Vector3 tempVec = transform.worldToLocalMatrix * transform.GetComponent<Rigidbody>().velocity;
+            //    tempVec.z /= 1.1f;
+            //    transform.GetComponent<Rigidbody>().velocity = transform.localToWorldMatrix * tempVec;
+            //}
+
             if (movementForce.y < -.1f && transform.InverseTransformPoint(transform.GetComponent<Rigidbody>().velocity).y < .01f)
             {
                 //calculated through worldtolocalmatrix so the local z value can be modified, instead of the global z value.
@@ -263,16 +272,16 @@ public class Movement_FPS : MonoBehaviour
         //below is to visualize the raws drayn for raycast test.
         if (displayDebugInfo)
         {
-            UnityEngine.Debug.DrawRay(transform.localPosition, -transform.up, Color.green, 1.5f);
-            UnityEngine.Debug.DrawRay(transform.localPosition + modLeft, -transform.up, Color.green, 1.5f);
-            UnityEngine.Debug.DrawRay(transform.localPosition + modUp, -transform.up, Color.green, 1.5f);
-            UnityEngine.Debug.DrawRay(transform.localPosition + modDown, -transform.up, Color.green, 1.5f);
-            UnityEngine.Debug.DrawRay(transform.localPosition + modRight, -transform.up, Color.green, 1.5f);
+            UnityEngine.Debug.DrawRay(transform.localPosition, -transform.up, Color.green, groundedCheckdist);
+            UnityEngine.Debug.DrawRay(transform.localPosition + modLeft, -transform.up, Color.green, groundedCheckdist);
+            UnityEngine.Debug.DrawRay(transform.localPosition + modUp, -transform.up, Color.green, groundedCheckdist);
+            UnityEngine.Debug.DrawRay(transform.localPosition + modDown, -transform.up, Color.green, groundedCheckdist);
+            UnityEngine.Debug.DrawRay(transform.localPosition + modRight, -transform.up, Color.green, groundedCheckdist);
         }
         //checks if any of the player is close enough to the ground
-        if (Physics.Raycast(transform.localPosition, -transform.up, 1.5f) || Physics.Raycast(transform.localPosition + modLeft, -transform.up, 1.5f) ||
-            Physics.Raycast(transform.localPosition + modUp, -transform.up, 1.5f) || Physics.Raycast(transform.localPosition + modDown, -transform.up, 1.5f) ||
-            Physics.Raycast(transform.localPosition + modRight, -transform.up, 1.5f)) //this might be overkill, might want to scale back to 1-2?
+        if (Physics.Raycast(transform.localPosition, -transform.up, groundedCheckdist) || Physics.Raycast(transform.localPosition + modLeft, -transform.up, groundedCheckdist) ||
+            Physics.Raycast(transform.localPosition + modUp, -transform.up, groundedCheckdist) || Physics.Raycast(transform.localPosition + modDown, -transform.up, groundedCheckdist) ||
+            Physics.Raycast(transform.localPosition + modRight, -transform.up, groundedCheckdist)) //this might be overkill, might want to scale back to 1-2?
         {
             return (true);
         }
