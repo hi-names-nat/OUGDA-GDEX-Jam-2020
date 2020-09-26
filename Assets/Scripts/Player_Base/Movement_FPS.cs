@@ -15,7 +15,6 @@
  * 
  * ***GENERAL TODO***
  * 
- * * FIX JUMP!!!
  * 
  * * fix strafing speed issue
  * 
@@ -151,6 +150,7 @@ public class Movement_FPS : MonoBehaviour
 
         currentRotation = cameraObject.transform.rotation.eulerAngles;
 
+
         if (!destroyOnLoad)
         {
             DontDestroyOnLoad(this.gameObject);
@@ -184,11 +184,28 @@ public class Movement_FPS : MonoBehaviour
     private void OnEnable()
     {
         inputController.Enable();
+
+        //vectors
+        inputController.Player.Move.performed += ctx /**grabs context for input**/ => moveInputForce = ctx.ReadValue<Vector2>();
+        inputController.Player.Move.canceled += _ => moveInputForce = Vector2.zero;
+
+        inputController.Player.Look.performed += ctx => MoveCamera(ctx.ReadValue<Vector2>());
+
+        inputController.Player.SwitchPerspective.performed += _ => SwitchCameraPos();
+
+        //bools 
+        inputController.Player.Jump.performed += _ => Jump();
     }
 
     private void OnDisable()
     {
         inputController.Disable();
+
+        inputController.Player.Move.performed -= ctx /**grabs context for input**/ => movePlayer(ctx.ReadValue<Vector2>());
+        inputController.Player.Move.canceled -= _ => moveInputForce = Vector2.zero;
+        inputController.Player.Look.performed -= ctx => MoveCamera(ctx.ReadValue<Vector2>());
+        inputController.Player.Jump.performed -= _ => Jump();
+        inputController.Player.SwitchPerspective.performed -= _ => SwitchCameraPos();
     }
 
     private void FixedUpdate()
