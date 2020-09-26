@@ -18,6 +18,11 @@ public class Game_Manager : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        inputController.Player.SwitchPlayer.performed -= _ => switchPlayer();
+    }
+
     void switchPlayer()
     {
         switch (dog_active)
