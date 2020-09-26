@@ -1,14 +1,24 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Game_Manager : MonoBehaviour
 {
+    public MasterInput inputController;
     public bool dog_active;
     public Movement_FPS dog_controller;
     public Movement_FPS player_controller;
 
-    void Update()
+    private void Awake()
+    {
+        inputController = new MasterInput();
+
+        inputController.Player.SwitchPlayer.performed += _ => switchPlayer();
+
+    }
+
+    void switchPlayer()
     {
         switch (dog_active)
         {
@@ -21,5 +31,6 @@ public class Game_Manager : MonoBehaviour
                 player_controller.enabled = true;
                 break;
         }
+        dog_active = !dog_active;
     }
 }

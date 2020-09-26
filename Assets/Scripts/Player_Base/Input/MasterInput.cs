@@ -57,6 +57,14 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Switch Player"",
+                    ""type"": ""Button"",
+                    ""id"": ""22f3f69d-05db-4e82-89c6-94eced343ee6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -310,6 +318,17 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1a95da0-37c4-4897-b8d7-8e2b21085aa1"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Switch Player"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -892,6 +911,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_SwitchPerspective = m_Player.FindAction("Switch Perspective", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_SwitchPlayer = m_Player.FindAction("Switch Player", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -958,6 +978,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_SwitchPerspective;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_SwitchPlayer;
     public struct PlayerActions
     {
         private @MasterInput m_Wrapper;
@@ -967,6 +988,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @SwitchPerspective => m_Wrapper.m_Player_SwitchPerspective;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @SwitchPlayer => m_Wrapper.m_Player_SwitchPlayer;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -991,6 +1013,9 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @SwitchPlayer.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchPlayer;
+                @SwitchPlayer.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchPlayer;
+                @SwitchPlayer.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchPlayer;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1010,6 +1035,9 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @SwitchPlayer.started += instance.OnSwitchPlayer;
+                @SwitchPlayer.performed += instance.OnSwitchPlayer;
+                @SwitchPlayer.canceled += instance.OnSwitchPlayer;
             }
         }
     }
@@ -1171,6 +1199,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnSwitchPerspective(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnSwitchPlayer(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
