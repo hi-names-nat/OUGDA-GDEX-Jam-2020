@@ -219,7 +219,7 @@ public class Movement_FPS : MonoBehaviour
      **/
     void movePlayer(Vector2 movementForce)
     {
-        print(isGrounded());
+        print(movementForce);
         if (isGrounded())
         {
             if (Mathf.Abs(moveInputForce.x) == 0 && Mathf.Abs(moveInputForce.y) == 0)
