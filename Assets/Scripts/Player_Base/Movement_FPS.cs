@@ -132,7 +132,7 @@ public class Movement_FPS : MonoBehaviour
      */
     private float curveFloat;
 
-    private bool isTP;
+    private bool isTP = false;
 
     private Vector3 FPPos;
 
@@ -142,6 +142,7 @@ public class Movement_FPS : MonoBehaviour
 
     private void Awake()
     {
+
         transform.GetComponent<Rigidbody>().mass = 1;
 
         cameraObject = transform.GetChild(0).gameObject;
@@ -159,26 +160,17 @@ public class Movement_FPS : MonoBehaviour
         //initializes the input script tied to the New Input Manager.
         inputController = new MasterInput();
 
-        //vectors
-        inputController.Player.Move.performed += ctx /**grabs context for input**/ => moveInputForce = ctx.ReadValue<Vector2>();
-        inputController.Player.Move.canceled += _ => moveInputForce = Vector2.zero;
+        ////vectors
+        //inputController.Player.Move.performed += ctx /**grabs context for input**/ => moveInputForce = ctx.ReadValue<Vector2>();
+        //inputController.Player.Move.canceled += _ => moveInputForce = Vector2.zero;
 
-        inputController.Player.Look.performed += ctx => MoveCamera(ctx.ReadValue<Vector2>());
+        //inputController.Player.Look.performed += ctx => MoveCamera(ctx.ReadValue<Vector2>());
 
-        inputController.Player.SwitchPerspective.performed += _ => SwitchCameraPos();
+        //inputController.Player.SwitchPerspective.performed += _ => SwitchCameraPos();
 
-        //bools 
-        inputController.Player.Jump.performed += _ => Jump();
+        ////bools 
+        //inputController.Player.Jump.performed += _ => Jump();
 
-    }
-    private void OnDestroy()
-    {
-        //unbind all actions to prevent memory leak
-        inputController.Player.Move.performed -= ctx /**grabs context for input**/ => movePlayer(ctx.ReadValue<Vector2>());
-        inputController.Player.Move.canceled -= _ => moveInputForce = Vector2.zero;
-        inputController.Player.Look.performed -= ctx => MoveCamera(ctx.ReadValue<Vector2>());
-        inputController.Player.Jump.performed -= _ => Jump();
-        inputController.Player.SwitchPerspective.performed -= _ => SwitchCameraPos();
     }
 
     private void OnEnable()
@@ -211,7 +203,7 @@ public class Movement_FPS : MonoBehaviour
     private void FixedUpdate()
     {
         //TODO: find a way to make it so this code does not have to be run every frame if possible
-         movePlayer(moveInputForce);
+        movePlayer(moveInputForce);
     }
 
     /**
@@ -219,7 +211,7 @@ public class Movement_FPS : MonoBehaviour
      **/
     void movePlayer(Vector2 movementForce)
     {
-        print(isGrounded());
+        //print(isGrounded());
         if (isGrounded())
         {
             if (Mathf.Abs(moveInputForce.x) == 0 && Mathf.Abs(moveInputForce.y) == 0)
@@ -236,7 +228,7 @@ public class Movement_FPS : MonoBehaviour
             Vector3 transformForce = transform.forward * movementForce.y + transform.right * movementForce.x;
             //this could be better, but not important rn
             transformForce = new Vector3(transformForce.x * curveFloat, transformForce.y, transformForce.z * curveFloat);
-            transformForce.y = transform.GetComponent<Rigidbody>().velocity.y; 
+            transformForce.y = transform.GetComponent<Rigidbody>().velocity.y;
             transform.GetComponent<Rigidbody>().velocity = transformForce;
 
 
@@ -336,11 +328,13 @@ public class Movement_FPS : MonoBehaviour
 
     void SwitchCameraPos()
     {
+        print(isTP);
         if (isTP)
         {
-            cameraObject.transform.localPosition = FPPos;
+            cameraObject.transform.localPosition -= TPPos;
             isTP = !isTP;
-        } else
+        }
+        else
         {
             cameraObject.transform.localPosition += TPPos;
             isTP = !isTP;

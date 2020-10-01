@@ -44,11 +44,11 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Switch Perspective"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""3afaf8a1-7536-4e92-8c35-16e9fadeb3ad"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Tap""
                 },
                 {
                     ""name"": ""Jump"",
@@ -297,7 +297,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Switch Perspective"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -309,6 +309,17 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Switch Perspective"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c490ae5d-f63b-4166-bf0f-6ef99978fc32"",
+                    ""path"": ""*/{Back}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Switch Perspective"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
