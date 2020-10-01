@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject playerCamera;
     public GameObject dogCamera;
 
-    public bool dogActive = false;
+    bool dogActive = false;
+    bool dogFollow = true;
 
     private void Awake()
     {
@@ -23,6 +25,12 @@ public class GameManager : MonoBehaviour
         {
             dogActive = !dogActive;
             DogSwitch();
+        }
+
+        if (Input.GetButtonDown("DogCommand"))
+        {
+            dogFollow = !dogFollow;
+            DogFollowSwitch();
         }
     }
 
@@ -38,6 +46,10 @@ public class GameManager : MonoBehaviour
                 // Enable dog components
                 dogController.GetComponent<Movement>().enabled = true;
                 dogCamera.SetActive(true);
+
+                // Disable Dog's NavMesh
+                dogFollow = false;
+                DogFollowSwitch();
                 break;
             case false:
                 // Enable player components
@@ -49,5 +61,11 @@ public class GameManager : MonoBehaviour
                 dogCamera.SetActive(false);
                 break;
         }
+    }
+
+    void DogFollowSwitch()
+    {
+        dogController.GetComponent<NavMeshAgent>().enabled = dogFollow;
+        dogController.GetComponent<DogMovementAI>().enabled = dogFollow;
     }
 }
