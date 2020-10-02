@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 4120419822745759054}
   - component: {fileID: 4120419822745759057}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: DogCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

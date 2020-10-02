@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5564872967502152748}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5564872966395691546
 MeshFilter:
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 5564872966975338152}
   - component: {fileID: 5564872966975338153}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: PlayerCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5564872967502152748}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &5564872966975338154
 Camera:
@@ -285,8 +285,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 3, z: 7.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5564872966395691545}
   - {fileID: 5564872966975338158}
+  - {fileID: 5564872966395691545}
   - {fileID: 5564872967023257470}
   m_Father: {fileID: 0}
   m_RootOrder: 0

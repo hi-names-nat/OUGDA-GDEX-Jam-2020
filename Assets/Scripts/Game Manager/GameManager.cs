@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,9 +10,11 @@ public class GameManager : MonoBehaviour
     public GameObject dogController;
     public GameObject playerCamera;
     public GameObject dogCamera;
+    public GameObject pauseMenu;
 
     bool dogActive = false;
     bool dogFollow = true;
+    bool pause = false;
 
     private void Awake()
     {
@@ -21,16 +24,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("DogSwitch"))
+        if (Input.GetButtonDown("DogSwitch") && !pause)
         {
             dogActive = !dogActive;
             DogSwitch();
         }
 
-        if (Input.GetButtonDown("DogCommand"))
+        if (Input.GetButtonDown("DogCommand") && !pause)
         {
             dogFollow = !dogFollow;
             DogFollowSwitch();
+        }
+
+        if (Input.GetButtonDown("Pause"))
+        {
+            pause = !pause;
+            PauseMenu();
         }
     }
 
@@ -67,5 +76,22 @@ public class GameManager : MonoBehaviour
     {
         dogController.GetComponent<NavMeshAgent>().enabled = dogFollow;
         dogController.GetComponent<DogMovementAI>().enabled = dogFollow;
+    }
+
+    void PauseMenu()
+    {
+        switch (pause)
+        {
+            case true:
+                Time.timeScale = 0;
+                pauseMenu.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                break;
+            case false:
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                break;
+        }
     }
 }
