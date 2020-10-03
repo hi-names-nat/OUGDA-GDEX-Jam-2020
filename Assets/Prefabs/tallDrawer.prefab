@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1629706458822025691}
-  - component: {fileID: -3368699207284456086}
   m_Layer: 0
   m_Name: tallDrawer
   m_TagString: Untagged
@@ -33,20 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!64 &-3368699207284456086
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2361778168599794632}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &3084340745598710532
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,6 +43,7 @@ GameObject:
   - component: {fileID: 8758315923425862680}
   - component: {fileID: 2370825374366256312}
   - component: {fileID: 6599297202571571762}
+  - component: {fileID: 5653762948338660822}
   m_Layer: 0
   m_Name: Cube.003
   m_TagString: Untagged
@@ -128,6 +114,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5653762948338660822
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3084340745598710532}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8678823145569952518, guid: c21b1f40b36d9aa4cb80e63b291394ce, type: 3}
 --- !u!1 &8169187703025326328
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 4209356527078496693}
   - component: {fileID: 2349477393692262907}
   - component: {fileID: 3281633033088463941}
+  - component: {fileID: 6285491792870317595}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -209,3 +210,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6285491792870317595
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169187703025326328}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: c21b1f40b36d9aa4cb80e63b291394ce, type: 3}
