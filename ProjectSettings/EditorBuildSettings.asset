@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: 0020873d95c80b34e8a90946867c0018
   - enabled: 1
-    path: Assets/Scenes/KaedenScene.unity
-    guid: f835124ea85936140b5754f7d6ffafb9
+    path: Assets/Scenes/Level.unity
+    guid: 013a194c9345a2943a4db84b09e2f333
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1450f04f50b39a34c8c7000288e1febb, type: 2}
