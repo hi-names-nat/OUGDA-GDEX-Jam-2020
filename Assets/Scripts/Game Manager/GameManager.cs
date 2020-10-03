@@ -49,11 +49,11 @@ public class GameManager : MonoBehaviour
         {
             case true:
                 // Disable player components
-                playerController.GetComponent<Movement>().enabled = false;
+                playerController.GetComponent<PlayerMovement>().enabled = false;
                 playerCamera.SetActive(false);
                 
                 // Enable dog components
-                dogController.GetComponent<Movement>().enabled = true;
+                dogController.GetComponent<PlayerMovement>().enabled = true;
                 dogCamera.SetActive(true);
 
                 // Disable Dog's NavMesh
@@ -62,11 +62,11 @@ public class GameManager : MonoBehaviour
                 break;
             case false:
                 // Enable player components
-                playerController.GetComponent<Movement>().enabled = true;
+                playerController.GetComponent<PlayerMovement>().enabled = true;
                 playerCamera.SetActive(true);
 
                 // Disable dog components
-                dogController.GetComponent<Movement>().enabled = false;
+                dogController.GetComponent<PlayerMovement>().enabled = false;
                 dogCamera.SetActive(false);
                 break;
         }
