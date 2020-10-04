@@ -6,13 +6,15 @@ public class CameraRay : MonoBehaviour
 {
     public Camera PlayerCamera;
     RaycastHit hit;
-    public LayerMask ThisLayer;
+    public int ThisLayer;
     
     void Update()
     {
         Ray ray = PlayerCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, ThisLayer) && Input.GetButtonDown("Interact") && hit.transform.gameObject.tag == "Interactable")
+        if (Physics.Raycast(ray, out hit) && Input.GetButtonDown("Interact") && hit.transform.gameObject.tag == "Interactable" && hit.transform.gameObject.layer == ThisLayer)
         {
+            print(ThisLayer);
+            print(hit.transform.gameObject.layer);
             GameObject objectHit = hit.transform.gameObject;
             switch (hit.transform.gameObject.name)
             {
@@ -26,7 +28,6 @@ public class CameraRay : MonoBehaviour
                     GlobalVariables.buckets++;
                     break;
             }
-            print(GlobalVariables.bottles);
             Destroy(objectHit);
         }
     }
