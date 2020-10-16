@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.28462127, g: 0.37120965, b: 0.49880528, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c1ae6f8a041abf047b2e3784107a738f, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -436,10 +436,11 @@ GameObject:
   - component: {fileID: 821923730}
   - component: {fileID: 821923729}
   - component: {fileID: 821923728}
-  - component: {fileID: 821923727}
-  - component: {fileID: 821923726}
   - component: {fileID: 821923732}
   - component: {fileID: 821923731}
+  - component: {fileID: 821923726}
+  - component: {fileID: 821923733}
+  - component: {fileID: 821923734}
   m_Layer: 0
   m_Name: Player_Person
   m_TagString: Untagged
@@ -456,29 +457,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 821923725}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2a1fa75258f4424e959e8336af3af0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyIfCantSnap: 0
---- !u!114 &821923727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 821923725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26ff6d3cf6989524fa420e7d72ce8d01, type: 3}
+  m_Script: {fileID: 11500000, guid: 721371f8372165d4792041aead54a42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 5
   maxYAngle: 90
-  jumpHeight: 15
-  airControl: 0.101
+  jumpHeight: 6
+  airControl: 0.425
   AirSpeed: 5
-  TPPos: {x: 1.4, y: 0.9, z: -2.7}
-  displayDebugInfo: 1
+  TPPos: {x: 0, y: 0, z: 0}
+  displayDebugInfo: 0
   groundedCheckdist: 1.5
   destroyOnLoad: 0
   sensitivity: 1
@@ -576,6 +564,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821923725}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &821923733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821923725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca81414dab22084bb60da2d11e499ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyIfCantSnap: 0
+--- !u!114 &821923734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821923725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e2345ecfce27842b15754ae3563b9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1086495948
 GameObject:
   m_ObjectHideFlags: 0
